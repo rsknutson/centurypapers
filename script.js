@@ -1,7 +1,25 @@
 let today = getToday();
-let centuryAgo = getCenturyAgo();
+let formatCenturyAgo = getCenturyAgo();
 
 
+function getUrl(query, date) {    
+    let url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+    url += '?' + $.param({
+    'api-key': "8193f525f86b469ebf80faa41dd82271",
+    'q': query,
+    'begin_date': date,
+    'end_date': date,
+    });
+    return url;
+}
+
+function onSubmit() {
+    let q = $("#query").val()
+    let url = getUrl(q, formatCenturyAgo);
+    $.getJSON(url, (result) => {
+        $("p").html(JSON.stringify(result));
+    });
+}
 
 function getToday() {
     let today = new Date();
@@ -35,13 +53,15 @@ function getCenturyAgo() {
         mm = '0'+mm
     } 
     
-    centuryAgo = mm + '/' + dd + '/' + yyyy;
+    centuryAgo = (yyyy + mm + dd);
     return centuryAgo;
 }
 
 
 
 $(document).ready(() => {
-    alert(today);
-    alert(centuryAgo);
+    $("#ping").on("submit", (e) => {
+        e.preventDefault();
+        onSubmit();
+    })
 });
