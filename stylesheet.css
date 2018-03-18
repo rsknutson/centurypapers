@@ -15,6 +15,7 @@
     border-style: dotted;
     border-width: 1px;
     background: #F0F0F0;
+    text-decoration: none;
   }
   
   .list-group-item a {
@@ -31,4 +32,5 @@
   .extract {
     margin-top: 15px;
   }
+
 
